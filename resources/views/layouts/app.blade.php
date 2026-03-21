@@ -13,6 +13,10 @@
         <!-- Bootstrap 5 -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- jQuery and Bootstrap 3 JS for dropdown -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
     <body>
@@ -27,18 +31,25 @@
                 <a class="nav-link" href={{ route('members.index')}}>Members List</a>
               </li>
             </ul>
-            @include('layouts.navAuth')
+            <ul class="nav navbar-nav navbar-right" style="margin-right:10px">
+                @if(Auth::check())
+                    @if(Auth::user()->hasRole('System Admin'))
+                        @include('layouts.adminmenu')
+                    @endif
+                    <li><a href="{!! route('logout') !!}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                @else
+                    <li><a href="{!! route('login') !!}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="{!! route('register') !!}"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                @endif
+            </ul>
           </div>
         </nav>
         
         <div id="page-content-wrapper"> 
             <div class="container-fluid"> 
                 <div class="row">
-                    <!-- Well for left side of the page (to compensate for widescreen) -->
                     <div class="col-lg-2"></div>
-                    <!-- Slot for content from Lower Level views with sections called 'content' pulled in here -->
                     <div class="col-lg-8"> @yield('content') </div>
-                    <!-- Well for right side of the page (to compensate for widescreen) -->
                     <div class="col-lg-2"></div> 
                 </div> 
             </div> 
