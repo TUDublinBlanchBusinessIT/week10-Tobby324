@@ -12,10 +12,9 @@
                 center: 'title'
             },
             slotDuration: '00:10:00',
-            defaultDate: '2023-02-22',
+            defaultDate: '2026-04-01',
             editable: true,
-            events: [ { title: 'All Day Event', start: '2023-02-20' },
-                      { title: 'Long Event', start: '2023-02-22', end: '2023-02-23' } ]
+            events: '{{ route('calendar.json') }}'
         });
         calendar.render();
     });
